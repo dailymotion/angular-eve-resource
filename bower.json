@@ -1,0 +1,32 @@
+{
+  "name": "angular-eve-resource",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dailymotion/angular-eve-resource",
+  "authors": [
+    "Rahul Doshi <rahul.doshi@dailymotion.com>"
+  ],
+  "description": "AngularJS Resource Adapter for the Python Eve REST API Framework",
+  "main": "dist/angular-eve-resource.js",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "python-eve",
+    "eve",
+    "resource"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.17",
+    "angular-resource": "~1.3.17"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.3.17"
+  }
+}

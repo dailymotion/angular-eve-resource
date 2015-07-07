@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - '0.12'
+
+addons:
+  code_climate:
+    repo_token:
+      secure: l3PbAQT/OMhBBVBxj+ZNRUAi12ur0Vcti5+MKqZLtfTB4im2tLqEBeyK+JgVqZj0Ijpct3XAFp3loq0BhmaiUZy3/qsAOXcm/R3a8B9KenIKYASDYnknDV8Ti8ulhill9uAlSlpYTwIAqsXRRsS6xAaFKe4GLHYuPs1MgYneScBamMobiGPtF4v/du40i5IC2jcvvm9RPw2i6aU/9iY01TP9SLb3XvL8fuu6JwUJBJQ72jfVwD8CUE1YqwLNJKcqqbUBjg8ApAcYSTF1rhe99DhVYzCcC8tgcLSJl1fL7taYXOxJr0eVv8vs3MeUekcOq+uG7kf6FqCmD9xgGClUDgjOEjzBcpznzTmwxakCKsiHbFcpf+Kv26pgxH5e2ouCwzr/J1B0ZpEFv+Yy62NgJBX/O/fKc5TGp+KRawocFciA9yZ8vwz8LLCzE/Va8uDbxOlg1vYVDG80Wi4v7eNcgUvZB5gr/0DIg6CxpQnExK9UoNgEDGLmYrmXtZ+K85cPK0dPmoC4k5Q30Do9n4lOucfSzu6nkjQwViFnoWPQLh5WXdFZCXteQJ17a9+X9+zGp3UTBv+DgftqoNOutPLZbfKpkif2wNd0Zqi1rOEokA3/ESZbcu5pPvLX7MyaZwvD2nV2a1bfqdGQ+K6tEXA4GjIr27FYTF6IgOABgGRP/ow=
+
+cache:
+  directories:
+    - node_modules
+    - bower_components
+
+after_success:
+  - codeclimate < coverage/lcov.info
