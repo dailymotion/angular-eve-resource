@@ -13,4 +13,4 @@ cache:
     - bower_components
 
 after_success:
-  - codeclimate < coverage/lcov.info
+  - ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info
