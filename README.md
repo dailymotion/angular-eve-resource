@@ -94,7 +94,7 @@ myApp.factory('Notes', function(eveResource) {
     update: {
       method: 'PUT'
     }
-  }, null, function(key, value) {
+  }, null, function replacer(key, value) {
     if (key == 'selected') {
       return undefined;
     }
@@ -102,3 +102,6 @@ myApp.factory('Notes', function(eveResource) {
   });
 });
 ```
+
+**NOTE:** `eveResource` allows the optional 4th `options` parameter of `$resource` to be skipped entirely,
+so that the more common use-case `function toJsonReplacer(key, value) {}` can be passed in instead of it.
