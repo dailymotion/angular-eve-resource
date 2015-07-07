@@ -7,10 +7,16 @@ angular.module('com.dailymotion.ngEveResource')
         return function(url, paramDefaults, actions, options, toJsonReplacer) {
             var Resource,
                 toJSON;
-
-            if (angular.isFunction(options)) {
-                toJsonReplacer = options;
-                options = {};
+            
+            if (!angular.isFunction(toJsonReplacer)) {
+                if (angular.isFunction(options)) {
+                    toJsonReplacer = options;
+                    options = {};
+                } else {
+                    toJsonReplacer = function(key, value) {
+                        return value;
+                    }
+                }
             }
 
             Resource = $resource(url, paramDefaults, actions, options);
@@ -21,11 +27,7 @@ angular.module('com.dailymotion.ngEveResource')
                 var data = toJSON.call(this);
 
                 angular.forEach(data, function(value, key) {
-                    if (key.charAt(0) === '_') {
-                        data[key] = undefined;
-                    }
-
-                    data[key] = toJsonReplacer(key, value);
+                    data[key] = key.charAt(0) == '_' ? undefined : toJsonReplacer(key, value);
                 });
 
                 return data;
