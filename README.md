@@ -13,6 +13,7 @@
   - [Basic Setup](#basic-setup)
   - [Example](#example)
 - [Advanced Usage](#advanced-usage)
+  - [JSON Replacer](#json-replacer)
 
 ## Getting Started
 
@@ -56,17 +57,48 @@ but only proxies its default `toJSON` function in order to remove eve's read-onl
 (marked by an underscore (i.e. `_`) prefix) so that these are not sent along with the payload body for `$http` requests.
 
 ```js
-myApp.factory('CreditCard', function(eveResource) {
-  return eveResource('/user/:userId/card/:cardId', {
-    userId:123,
-    cardId:'@id'
-  }, {
-    charge: {
-      method:'POST',
-      params:{
-        charge: true
+myApp
+  .factory('CreditCard', function(eveResource) {
+    return eveResource('/user/:userId/card/:cardId', {
+      userId:123,
+      cardId:'@id'
+    }, {
+      charge: {
+        method:'POST',
+        params:{
+          charge: true
+        }
       }
+    });
+  })
+  .factory('User', function(eveResource) {
+    return eveResource('/user/:userId', {
+      userId:'@id'
+    });
+  });
+```
+
+# Advanced Usage
+
+### JSON Replacer
+
+`eveResource` accepts one additional argument over and above what `$resource` takes,
+which serves as a custom replacement function for any additional object properties
+(most commonly added to augment to resource during de-serialization)
+which need to be omitted or modified in any way prior to object serialization
+(using either `angular.toJson` or `JSON.stringify` directly).
+
+```js
+myApp.factory('Notes', function(eveResource) {
+  return eveResource('/notes/:id', null, {
+    update: {
+      method: 'PUT'
     }
+  }, null, function(key, value) {
+    if (key == 'selected') {
+      return undefined;
+    }
+    return value;
   });
 });
 ```
