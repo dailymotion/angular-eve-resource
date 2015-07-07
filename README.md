@@ -11,7 +11,8 @@
 - [Getting Started](#getting-started)
   - [Quick Start](#quick-start)
   - [Basic Setup](#basic-setup)
-- [Usage Example](#usage-example)
+  - [Example](#example)
+- [Advanced Usage](#advanced-usage)
 
 ## Getting Started
 
@@ -48,6 +49,24 @@ You can then include `angular-eve-resource` after its dependencies;
 angular.module('myApp', ['com.dailymotion.ngEveResource']);
 ```
 
-## Usage Example
+### Example
 
-TODO
+Currently, `eveResource` mimics `$resource`'s [api interface](https://docs.angularjs.org/api/ngResource/service/$resource) `function(url, paramDefaults, actions, options)`
+but only proxies its default `toJSON` function in order to remove eve's read-only properties
+(marked by an underscore (i.e. `_`) prefix) so that these are not sent along with the payload body for `$http` requests.
+
+```js
+myApp.factory('CreditCard', function(eveResource) {
+  return eveResource('/user/:userId/card/:cardId', {
+    userId:123,
+    cardId:'@id'
+  }, {
+    charge: {
+      method:'POST',
+      params:{
+        charge: true
+      }
+    }
+  });
+});
+```
