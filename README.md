@@ -53,7 +53,7 @@ angular.module('myApp', ['com.dailymotion.ngEveResource']);
 ### Example
 
 Currently, `eveResource` mimics `$resource`'s [api interface](https://docs.angularjs.org/api/ngResource/service/$resource) `function(url, paramDefaults, actions, options)`
-but only proxies its default `toJSON` function in order to remove eve's read-only properties
+but proxies its default `toJSON` function in order to remove eve's read-only properties
 (marked by an underscore (i.e. `_`) prefix) so that these are not sent along with the payload body for `$http` requests.
 
 ```js
@@ -84,9 +84,11 @@ myApp
 
 `eveResource` accepts one additional argument over and above what `$resource` takes,
 which serves as a custom replacement function for any additional object properties
-(most commonly added to augment to resource during de-serialization)
+(most commonly added to augment the resource during de-serialization)
 which need to be omitted or modified in any way prior to object serialization
-(using either `angular.toJson` or `JSON.stringify` directly).
+(using either `angular.toJson` or `JSON.stringify` directly).  
+However, this function will only be called if the key does not start with an underscore,
+otherwise the key-value pair will be removed regardless and the provided function will not fire.
 
 ```js
 myApp.factory('Notes', function(eveResource) {
