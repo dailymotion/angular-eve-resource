@@ -94,7 +94,7 @@ otherwise the key-value pair will be removed regardless and the provided functio
 myApp.factory('Notes', function(eveResource) {
   return eveResource('/notes/:id', null, {
     update: {
-      method: 'PUT'
+      method: 'PATCH'
     }
   }, null, function replacer(key, value) {
     if (key == 'selected') {

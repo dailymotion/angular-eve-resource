@@ -1,19 +1,34 @@
 describe('eveResource', function() {
     var Resource;
 
-    beforeEach(function() {
-        module('com.dailymotion.ngEveResource');
-        inject(function(eveResource) {
-            Resource = eveResource('http://api.dailymotion.com/videos/:id');
-        });
-    });
+    beforeEach(module('com.dailymotion.ngEveResource'));
 
-    it('should correctly serialize the data toJSON', function() {
-        var resource = new Resource({
+    it('should correctly serialize the data toJSON', inject(function(eveResource) {
+        var User = eveResource('/user/:userId', {
+            userId:'@id'
+        }), user = new User({
             hai: 'hello world!',
             _kthx: 'bai'
         });
 
-        expect(angular.toJson(resource)).toBe('{"hai":"hello world!"}');
-    });
+        expect(angular.toJson(user)).toBe('{"hai":"hello world!"}');
+    }));
+
+    it('should respect the optional 4th param as replacerFn if not an Object', inject(function(eveResource) {
+        var Notes = eveResource('/notes/:id', null, {
+            update: {
+                method: 'PATCH'
+            }
+        }, function (key, value) {
+            if (key == 'selected') {
+                return undefined;
+            }
+            return value;
+        }), note = new Notes({
+            selected: false,
+            _id: '123'
+        });
+
+        expect(angular.toJson(note)).toBe('{}');
+    }));
 });
