@@ -7,14 +7,14 @@
   // Define globals exposed by modern browsers.
   "browser": true,
 
-  // Define globals exposed by Jasmine.
-  "jasmine": true,
-
   // Define globals exposed by Node.js.
   "node": true,
 
-  // Allow ES6.
-  "esnext": true,
+  // Define globals exposed by Jasmine.
+  "jasmine": true,
+
+  // Define globals exposed by Mocha.
+  "mocha": true,
 
   /*
    * ENFORCING OPTIONS
