@@ -1,5 +1,5 @@
-var SRC_DIR = 'src',
-    DIST_DIR = 'dist',
+var DIST_DIR = 'dist',
+    SRC_FILES = 'src/**/*.js',
 
     pkgName = require('./package.json').name,
 
@@ -18,9 +18,11 @@ gulp.task('clean', function(done) {
 gulp.task('default', function() {
     var filename = pkgName + '.js';
 
-    return gulp.src(path.join(SRC_DIR, '**', '*.js'))
+    return gulp.src(SRC_FILES)
         .pipe($.newer(path.join(DIST_DIR, filename)))
         .pipe($.angularFilesort())
+        .pipe($.addSrc.prepend('module.prefix'))
+        .pipe($.addSrc.append('module.suffix'))
         .pipe($.concat(filename))
         .pipe(gulp.dest(DIST_DIR))
         .pipe($.ngAnnotate({
@@ -37,8 +39,15 @@ gulp.task('default', function() {
         .pipe(gulp.dest(DIST_DIR));
 });
 
-gulp.task('test', function(done) {
+gulp.task('test', ['lint'], function(done) {
     karma.start({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done);
+});
+
+gulp.task('lint', function() {
+    return gulp.src(SRC_FILES)
+        .pipe($.jshint())
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe($.jshint.reporter('fail'));
 });
