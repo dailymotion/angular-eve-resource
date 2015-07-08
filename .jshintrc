@@ -13,9 +13,6 @@
   // Define globals exposed by Jasmine.
   "jasmine": true,
 
-  // Define globals exposed by Mocha.
-  "mocha": true,
-
   /*
    * ENFORCING OPTIONS
    * =================
@@ -67,5 +64,9 @@
 
   "globals": {
     "angular": true
+  },
+
+  "predef": {
+    "inject": true
   }
 }
