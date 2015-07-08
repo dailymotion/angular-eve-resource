@@ -23,8 +23,7 @@ angular.module('com.dailymotion.ngEveResource')
                 var data = toJSON.call(this);
 
                 angular.forEach(data, function(value, key) {
-                    data[key] = key.charAt(0) === '_' ?
-                    undefined : toJsonReplacer(key, value);
+                    data[key] = key.charAt(0) === '_' ? undefined : toJsonReplacer(key, value);
                 });
 
                 return data;
