@@ -7,12 +7,6 @@
   // Define globals exposed by modern browsers.
   "browser": true,
 
-  // Define globals exposed by Node.js.
-  "node": true,
-
-  // Define globals exposed by Jasmine.
-  "jasmine": true,
-
   /*
    * ENFORCING OPTIONS
    * =================
@@ -64,9 +58,5 @@
 
   "globals": {
     "angular": true
-  },
-
-  "predef": {
-    "inject": true
   }
 }
