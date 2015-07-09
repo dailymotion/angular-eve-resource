@@ -87,6 +87,14 @@ which serves as a custom replacement function for any additional object properti
 (most commonly added to augment the resource during de-serialization)
 which need to be omitted or modified in any way prior to object serialization
 (using either `angular.toJson` or `JSON.stringify` directly).  
+
+The `toJsonReplacer` function will be passed 2 arguments `(propertyName, value)`
+and is expected to return a value that will be set as the replacement of the Object's key in question.
+It is highly recommended to return the value as-is if it is to be treated as unchanged
+and `undefined` if it must be entirely removed from the request body payload.
+This process of elimination can also be achieved in the `requestTransform`
+to mirror any fields added in the `responseTransform`.  
+
 However, this function will only be called if the key does not start with an underscore,
 otherwise the key-value pair will be removed regardless and the provided function will not fire.
 
