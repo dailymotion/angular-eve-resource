@@ -29,6 +29,10 @@ angular.module('com.dailymotion.ngEveResource')
                 return data;
             };
 
+            Resource.prototype.exists = function() {
+                return !!this._id;
+            };
+
             return Resource;
         };
     });
