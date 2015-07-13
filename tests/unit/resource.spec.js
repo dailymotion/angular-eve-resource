@@ -31,4 +31,20 @@ describe('eveResource', function() {
 
         expect(angular.toJson(note)).toBe('{}');
     }));
+
+    it('should check if the object resource is new or if it already exists in the database', inject(function(eveResource) {
+        var CreditCard = eveResource('/user/:userId/card/:cardId', {
+            userId:123,
+            cardId:'@id'
+        }, {
+            charge: {
+                method:'POST',
+                params:{
+                    charge: true
+                }
+            }
+        }), creditCard = new CreditCard();
+
+        expect(creditCard.exists()).toEqual(false);
+    }));
 });
