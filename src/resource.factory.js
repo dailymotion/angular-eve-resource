@@ -3,7 +3,7 @@ angular.module('com.dailymotion.ngEveResource')
         return function(url, paramDefaults, actions, options, toJsonReplacer) {
             var Resource,
                 toJSON;
-            
+
             if (!angular.isFunction(toJsonReplacer)) {
                 if (angular.isFunction(options)) {
                     toJsonReplacer = options;
