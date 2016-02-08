@@ -50,7 +50,8 @@ angular.module('com.dailymotion.ngEveResource')
                 }
             },
         };
-    })
+    });
+
 angular.module('com.dailymotion.ngEveResource')
     .factory('eveResource', function($resource) {
         return function(url, paramDefaults, actions, options, toJsonReplacer) {
