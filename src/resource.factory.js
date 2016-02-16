@@ -1,5 +1,5 @@
 angular.module('com.dailymotion.ngEveResource')
-    .constant('eveCfg', {
+    .value('eveCfg', {
         'dateformat': 'YYYY-MM-DDTHH:mm:ss[Z]'
     })
     .factory('eveResource', function ($window, $resource, eveCfg) {
