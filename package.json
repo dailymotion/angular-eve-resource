@@ -1,6 +1,6 @@
 {
   "name": "angular-eve-resource",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "AngularJS Resource Adapter for Python Eve REST API Framework",
   "main": "dist/angular-eve-resource.js",
   "scripts": {
