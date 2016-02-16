@@ -21,7 +21,6 @@ gulp.task('default', function() {
     var filename = pkgName + '.js';
 
     return gulp.src(SRC_FILES)
-        .pipe($.newer(path.join(DIST_DIR, filename)))
         .pipe($.angularFilesort())
         .pipe($.addSrc.prepend('module.prefix'))
         .pipe($.addSrc.append('module.suffix'))
