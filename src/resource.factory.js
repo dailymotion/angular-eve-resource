@@ -1,6 +1,6 @@
 angular.module('com.dailymotion.ngEveResource')
-    .constant("eveCfg", {
-        "dateformat": "YYYY-MM-DDTHH:mm:ss[Z]"
+    .constant('eveCfg', {
+        'dateformat': 'YYYY-MM-DDTHH:mm:ss[Z]'
     })
     .factory('eveResource', function ($window, $resource, eveCfg) {
         return function(url, paramDefaults, actions, options, toJsonReplacer) {
@@ -37,7 +37,7 @@ angular.module('com.dailymotion.ngEveResource')
             };
 
             function format (time, fmt) {
-                return $window.moment && $window.moment.utc ? moment.utc(time).format(fmt || eveCfg.dateformat) : time;
+                return $window.moment && $window.moment.utc ? $window.moment.utc(time).format(fmt || eveCfg.dateformat) : time;
             }
 
             Resource.prototype.formatUpdated = function (fmt) {
