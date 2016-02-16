@@ -12,7 +12,9 @@ var DIST_DIR = 'dist',
     $ = require('gulp-load-plugins')();
 
 gulp.task('clean', function(done) {
-    del(DIST_DIR, done);
+    del(DIST_DIR, function () {
+        done();
+    });
 });
 
 gulp.task('default', function() {
@@ -42,7 +44,9 @@ gulp.task('default', function() {
 gulp.task('test', ['lint'], function(done) {
     karma.start({
         configFile: path.join(__dirname, 'karma.conf.js')
-    }, done);
+    }, function () {
+        done();
+    });
 });
 
 gulp.task('lint', function() {
