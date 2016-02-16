@@ -119,17 +119,19 @@ so that the more common use-case `function toJsonReplacer(key, value) {}` can be
 
 ### Datetime formatter
 
-The datetime formatter is used to format the eve resource's `_created` and the `_updated` fields. It depnds on [moment.js 1.5.0+](http://momentjs.com/) to handle formatting. If moment.js is not available, the datetime will not be formatted.
+The datetime formatter is used to format the eve resource's `_created` and the `_updated` fields. It depends on [moment.js 1.5.0+](http://momentjs.com/) to handle formatting. If moment.js is not available, the datetime will not be formatted.
 
 Please look at [moment.js string formatter](http://momentjs.com/docs/#/parsing/string-format/) for how to manipulate the datetime.
 
 #### Override the default format
-The default dateformat can be overridden setting the `eveCfg` value.
+The default dateformat can be overridden setting the eveResourceProvider `init` method.
 
 ```js
-myApp.value('eveCfg', {
-    // Formatter definition: http://momentjs.com/docs/#/parsing/string-format/
-    'dateformat': 'YYYY-MM-DDTHH:mm:ss[Z]'
+myApp.config(function(eveResourceProvider) {
+    eveResourceProvider.init({
+        // Formatter definition: http://momentjs.com/docs/#/parsing/string-format/
+        dateformat: 'YYYY-MM-DDTHH:mm:ss[Z]'
+    });
 });
 ```
 
@@ -145,6 +147,3 @@ Pass the format string as the first parameter:
         console.log(note.formatCreated('YYYY-MM-DDTHH:mm:ss[Z]'));
     });
 ```
-
-
-
