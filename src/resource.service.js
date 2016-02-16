@@ -11,6 +11,17 @@ angular.module('com.dailymotion.ngEveResource')
                 return !!arg;
             });
         }
+
+        function isDefined (val) {
+            if (angular.isUndefined(val)) {
+                return false;
+            }
+            if (angular.isString(val)) {
+                return val.length > 0;
+            }
+            return true;
+        }
+
         this.query = {
             $and: function () {
                 var cond = prepareArgs.apply(null, arguments);
@@ -26,7 +37,7 @@ angular.module('com.dailymotion.ngEveResource')
             },
             $eq: function (key, val) {
                 var o;
-                if (angular.isDefined(key) && angular.isDefined(val)) {
+                if (isDefined(key) && isDefined(val)) {
                     o = {};
                     o[key] = val;
                     return o;
@@ -34,7 +45,7 @@ angular.module('com.dailymotion.ngEveResource')
             },
             $like: function (key, val) {
                 var o;
-                if (angular.isDefined(key) && val) {
+                if (isDefined(key) && val) {
                     o = {};
                     o[key] = {
                         $regex: val

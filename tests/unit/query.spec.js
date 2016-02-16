@@ -6,6 +6,7 @@ describe('eve', function () {
         var qw = eve.query;
 
         expect(qw.$eq('asdf', undefined)).toBeUndefined();
+        expect(qw.$eq('asdf', "")).toBeUndefined();
         expect(qw.$eq('asdf', 123)).toEqual({
             'asdf': 123
         });
@@ -16,6 +17,7 @@ describe('eve', function () {
 
         expect(qw.$like('asdf', undefined)).toBeUndefined();
         expect(qw.$like('asdf', null)).toBeUndefined();
+        expect(qw.$like('asdf', "")).toBeUndefined();
         expect(qw.$like('asdf', 123)).toEqual({
             'asdf': {
                 $regex: 123
