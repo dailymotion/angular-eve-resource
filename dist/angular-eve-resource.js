@@ -8,7 +8,7 @@ angular.module('com.dailymotion.ngEveResource', [
 angular.module('com.dailymotion.ngEveResource')
     .service('eve', function () {
         function prepareArgs () {
-            var args = Array.prototype.slice.call(arguments);
+            var args = angular.isArray(arguments[0]) ? arguments[0] : Array.prototype.slice.call(arguments);
             return args.map(function (arg) {
                 if (angular.isFunction(arg)) {
                     return arg();
