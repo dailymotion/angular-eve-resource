@@ -12,5 +12,10 @@ cache:
     - node_modules
     - bower_components
 
+install:
+    # remove angular so there will be no conflicts
+    - bower uninstall angular angular-resource angular-mocks
+    - npm install
+
 after_success:
   - ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info
