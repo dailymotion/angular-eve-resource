@@ -15,6 +15,16 @@
 - [Advanced Usage](#advanced-usage)
   - [JSON Replacer](#json-replacer)
   - [Datetime formatter](#Datetime formatter)
+- [Query Builder](#query-builder)
+  - [$eq](Helper $eq)
+  - [$ne](Helper $ne)
+  - [$gt](Helper $gt)
+  - [$gte](Helper $gte)
+  - [$lt](Helper $lt)
+  - [$lte](Helper $lte)
+  - [$regex](Helper $regex)
+  - [$and](Helper $and)
+  - [$or](Helper $or)
 
 ## Getting Started
 
@@ -79,7 +89,7 @@ myApp
   });
 ```
 
-# Advanced Usage
+## Advanced Usage
 
 ### JSON Replacer
 
@@ -147,3 +157,223 @@ Pass the format string as the first parameter:
         console.log(note.formatCreated('YYYY-MM-DDTHH:mm:ss[Z]'));
     });
 ```
+
+## Query Builder
+
+Example of the query build for MongoDB backend:
+
+```js
+    myApp.controller('MyCtrl', function (eve) {
+        // query where clause helper
+        var qw = eve.query;
+
+        eveResource.query({
+            where: qw.$and([
+                qw.$eq('asdf', 1234)
+                qw.$eq('status', 1234)
+            ])
+        });
+    });
+```
+
+### $eq
+
+Check if value is equal.
+
+```js
+    /**
+    * output = {
+    *     'asdf': '23'
+    * };
+    */
+    output = qw.$eq('asdf', '23');
+```
+
+### $ne
+
+Check if value is not equal.
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $ne: '23'
+    *     }
+    * };
+    */
+    output = qw.$ne('asdf', '23');
+```
+
+### $gt
+
+Check if value is greater than exclusive.
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $gt: 23
+    *     }
+    * };
+    */
+    output = qw.$gt('asdf', '23');
+```
+
+### $gte
+
+Check if value is greater than inclusive.
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $gte: 23
+    *     }
+    * };
+    */
+    output = qw.$gte('asdf', '23');
+```
+
+### $lt
+
+Check if value is less than exclusive.
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $lt: 23
+    *     }
+    * };
+    */
+    output = qw.$lt('asdf', '23');
+```
+
+### $lte
+
+Check if value is less than inclusive.
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $lte: 23
+    *     }
+    * };
+    */
+    output = qw.$lte('asdf', '23');
+```
+
+### $regex
+
+Check if value matches a pattern. The last optional parameter `match` can be either a function or string.
+
+##### Match default
+
+```js
+    /*
+    * output = {
+    *     'asdf': {
+    *         $regex: '^23'
+    *     }
+    * };
+    */
+    output = qw.$regex('asdf', '^23');
+```
+
+##### Match function
+
+```js
+    /*
+    * output = {
+    *     'asdf': {
+    *         $regex: '123'
+    *     }
+    * };
+    */
+    output = qw.$regex('asdf', '23', function (val) {
+        if (val.charAt(0) === '2') {
+            return '1' + val;
+        }
+        return val;
+    });
+```
+
+##### Match as 'wrap'
+
+```js
+    /*
+    * output = {
+    *     'asdf': {
+    *         $regex: '.*?23.*?'
+    *     }
+    * };
+    */
+    output = qw.$regex('asdf', '23', 'wrap');
+```
+
+#####  Match as 'pre'
+
+```js
+    /*
+    * output = {
+    *     'asdf': {
+    *         $regex: '.*?23'
+    *     }
+    * };
+    */
+    output = qw.$regex('asdf', '23', 'pre');
+```
+
+####  Match: 'post'
+
+```js
+    /**
+    * output = {
+    *     'asdf': {
+    *         $regex: '23.*?'
+    *     }
+    * };
+    */
+    output = qw.$regex('asdf', '23', 'post');
+```
+
+### $and
+
+Logical and operator.
+
+```js
+    /**
+    * output = {
+    *     $and: [
+    *         { 'asdf': '23' },
+    *         { 'jkl;': '56' },
+    *     ]
+    * };
+    */
+    output = qw.$and([
+        qw.$eq('asdf', '23'),
+        qw.$eq('jkl;', '56'),
+    ]);
+```
+
+### $or
+
+Logical or operator.
+
+```js
+    /**
+    * output = {
+    *     $or: [
+    *         { 'asdf': '23' },
+    *         { 'asdf': '56' },
+    *     ]
+    * };
+    */
+    output = qw.$or([
+        qw.$eq('asdf', '23'),
+        qw.$eq('asdf', '56'),
+    ]);
+```
+
+
